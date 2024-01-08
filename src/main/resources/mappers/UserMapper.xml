@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.projrentalprac.user.UserMapper">
+    <insert id="postSignup" useGeneratedKeys="true"  keyProperty="iuser">
+        INSERT user
+        SET iaddr = #{iaddr}
+        , rest_addr = #{restAddr}
+        , uid = #{uid}
+        , upw = #{upw}
+        , nick = #{nick}
+        , stored_pic = #{storedPic}
+        , request_pic = #{requestPic}
+        , phone = #{phone}
+        , email = #{email}
+    </insert>
+
+</mapper>
