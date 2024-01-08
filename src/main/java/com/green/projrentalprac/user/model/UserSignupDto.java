@@ -16,4 +16,6 @@ public class UserSignupDto {
     private String requstPic;
     private String phone;
     private String email;
+    private double x;
+    private double y;
 }

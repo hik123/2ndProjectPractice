@@ -12,6 +12,8 @@
         , request_pic = #{requestPic}
         , phone = #{phone}
         , email = #{email}
+        , x = #{x}
+        , y = #{y}
     </insert>
 
 </mapper>
