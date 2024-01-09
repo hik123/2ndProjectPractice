@@ -2,8 +2,11 @@ package com.green.projrentalprac.user.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class UserSignupDto {
     @JsonIgnore
     private int iuser;
@@ -12,8 +15,8 @@ public class UserSignupDto {
     private String uid;
     private String upw;
     private String nick;
-    private String storePic;
-    private String requstPic;
+    private String storedPic;
+    private String requestPic;
     private String phone;
     private String email;
     private double x;

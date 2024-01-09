@@ -2,6 +2,7 @@ package com.green.projrentalprac.user;
 
 
 import com.green.projrentalprac.common.ResVo;
+import com.green.projrentalprac.user.model.UserFindUidVo;
 import com.green.projrentalprac.user.model.UserSignupDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,14 @@ public class UserController {
     @PostMapping("/signup")
     public ResVo postSignup(@RequestBody UserSignupDto dto) {
         log.debug("dto : {}", dto);
+
         return service.postSignup(dto);
     }
+
+    @PostMapping("/id")
+     public UserFindUidVo getFindUid(@RequestBody String phone) {
+        return service.selFindUid(phone);
+    }
+
+
 }
