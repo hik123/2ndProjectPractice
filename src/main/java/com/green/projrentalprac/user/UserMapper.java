@@ -1,11 +1,15 @@
 package com.green.projrentalprac.user;
 
-import com.green.projrentalprac.user.model.UserFindUidVo;
-import com.green.projrentalprac.user.model.UserSignupDto;
+import com.green.projrentalprac.user.model.*;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface UserMapper {
     int insUser(UserSignupDto dto);
-    UserFindUidVo selFindUid(String phone);
+    UserSigninVo selUser(UserSigninDto dto);
+    UserFindUidVo findUid(UserFindUidDto dto);
+    UserFindUidVo findUidCheck(String phone);
+
+    int findUpw(UserFindUpwDto dto);
+    int updInfo(UserUpdInfoDto dto);
 }

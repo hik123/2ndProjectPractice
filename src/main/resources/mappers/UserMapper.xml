@@ -8,11 +8,9 @@
         , uid = #{uid}
         , upw = #{upw}
         , nick = #{nick}
-        <if test=" storedPic != null and storedPic != '' ">
-            , stored_pic = #{storedPic}
-        </if>
-        <if test=" requestPic != null and requestPic != '' ">
-            , request_pic = #{requestPic}
+        <if test=" pic != null and pic != '' ">
+            , stored_pic = #{pic}
+            , request_pic = #{pic}
         </if>
         , phone = #{phone}
         , email = #{email}
@@ -20,17 +18,52 @@
         , x = #{x}
     </insert>
 
-    <select id="selFindUid">
+    <select id="selUser">
+        SELECT iuser, iauth
+        FROM t_user
+        WHERE uid = #{uid} and iuser = #{iuser}
+    </select>
+
+    <select id="findUid">
         SELECT uid
         FROM t_user
         WHERE phone = #{phone}
     </select>
 
-    <insert id="insFindUpw">
-        INSERT INTO t_user
-        SET upw = #{upw}
+    <select id="findUidCheck">
+        SELECT COUNT(uid) FROM t_user WHERE phone = #{phone}
+    </select>
+
+    <update id="findUpw">
+        UPDATE t_user
+        SET upw = #{newUpw}
         WHERE uid = #{uid}
         and phone = #{phone}
-    </insert>
+    </update>
 
+    <update id="updInfo">
+        UPDATE t_user
+        <set>
+        <if test=" nick != null and nick != '' ">
+            nick = #{nick},
+        </if>
+        <if test=" pic != null and pic != '' ">
+            request_pic = #{pic},
+            stored_pic = #{pic},
+        </if>
+        <if test=" upw != null and upw != '' ">
+            upw = #{upw},
+        </if>
+        <if test=" phone != null and phone != '' ">
+            phone = #{phone},
+        </if>
+        <if test=" restAddr != null and restAddr != '' ">
+            rest_addr = #{restAddr},
+        </if>
+        <if test=" email != null and email != '' ">
+            email = #{email}
+        </if>
+        </set>
+        WHERE iuser = #{iuser}
+    </update>
 </mapper>

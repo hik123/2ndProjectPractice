@@ -11,12 +11,12 @@ public class UserSignupDto {
     @JsonIgnore
     private int iuser;
     private int iaddr;
+    private String addr;
     private String restAddr;
     private String uid;
     private String upw;
     private String nick;
-    private String storedPic;
-    private String requestPic;
+    private String pic;
     private String phone;
     private String email;
     private double x;
