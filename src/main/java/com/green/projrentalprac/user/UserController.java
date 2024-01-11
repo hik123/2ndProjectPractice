@@ -46,5 +46,16 @@ public class UserController {
         return service.putInfo(dto);
     }
 
+    @GetMapping("/{iuser}")
+    public UserInfoCheckVo selUserInfoCheck(@PathVariable int iuser) {
+        return service.selUserInfoCheck(iuser);
+    }
+
+
+    @PatchMapping
+    public ResVo delUser(int iuser) {
+        return service.delUser(iuser);
+    }
+
 
 }

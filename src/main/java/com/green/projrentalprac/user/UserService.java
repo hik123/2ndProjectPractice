@@ -30,12 +30,17 @@ public class UserService {
     }
 
     public UserSigninVo postSignin(UserSigninDto dto) {
-        UserSigninVo vo = mapper.selUser(dto);
-        if(vo == null) {
-            throw new BadInformationException("dfafas!!");
-        }
-        //if(BCrypt.checkpw()){}
         log.info("dto : {}", dto);
+        UserSigninVo vo = new UserSigninVo();
+        UserSigninProcVo pVo = mapper.selUser(dto);
+        if(pVo == null) {
+            throw new BadInformationException("잘못된 아이디!");
+        }
+        if(!(BCrypt.checkpw(dto.getUpw(), pVo.getUpw()))) {
+            throw new BadInformationException("잘못된 비번!");
+        }
+        vo.setIauth(pVo.getIauth());
+        vo.setIuser(pVo.getIuser());
         return vo;
     }
 
@@ -52,5 +57,23 @@ public class UserService {
     public ResVo putInfo(UserUpdInfoDto dto) {
         int result = mapper.updInfo(dto);
         return new ResVo(result);
+    }
+
+    public UserInfoCheckVo selUserInfoCheck(int iuser) {
+        UserInfoCheckVo vo = mapper.selUserInfoCheck(iuser);
+        return vo;
+    }
+
+    public ResVo delUser(int iuser) {
+        UserDelVo entity = mapper.selDelTarget(iuser);
+        if(entity == null) {
+            mapper.delPics(iuser);
+            mapper.delProdPaymt(iuser);
+            mapper.delProduct(entity.getIproduct());
+            mapper.updPayment(iuser);
+            mapper.delUser(iuser);
+        }
+
+        return new ResVo(1);
     }
 }

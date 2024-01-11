@@ -19,9 +19,9 @@
     </insert>
 
     <select id="selUser">
-        SELECT iuser, iauth
+        SELECT iuser, iauth, upw
         FROM t_user
-        WHERE uid = #{uid} and iuser = #{iuser}
+        WHERE uid = #{uid}
     </select>
 
     <select id="findUid">
@@ -32,6 +32,13 @@
 
     <select id="findUidCheck">
         SELECT COUNT(uid) FROM t_user WHERE phone = #{phone}
+    </select>
+
+    <select id="selUserInfoCheck">
+        SELECT rest_addr AS restAddr, nick, stored_pic AS pic
+        , phone, email, raiting, y, x
+        FROM t_user
+        WHERE iuser = #{iuser}
     </select>
 
     <update id="findUpw">
@@ -66,4 +73,51 @@
         </set>
         WHERE iuser = #{iuser}
     </update>
+
+    <select id="selDelTarget">
+        SELECT P.iproduct, PP.ipayment
+        FROM t_user U
+        LEFT JOIN t_product P ON P.istatus IN (-1, -2)
+        JOIN t_product_payment PP ON P.iproduct = PP.iproduct
+        JOIN t_payment PA ON PP.ipayment = PA.ipayment AND PA.istatus IN (1, -1, -2, -3)
+        WHERE U.iuser = #{iuser};
+    </select>
+
+    <delete id="delUser">
+        DELETE FROM t_user
+        WHERE iuser = #{iuser}
+    </delete>
+
+    <delete id="delPics">
+        DELETE FROM t_pics
+        WHERE iproduct IN (
+            SELECT iproduct
+            FROM t_product
+            WHERE iuser = #{iuser}
+        )
+    </delete>
+
+    <delete id = "delProdPaymt">
+        DELETE FROM t_product_payment
+        WHERE iproduct IN(
+            SELECT iproduct
+            FROM t_product
+            WHERE iuser = #{iuser}
+        )
+    </delete>
+    
+    <delete id="delProduct">
+        DELETE FROM t_product
+        WHERE iproduct = #{iproduct}
+    </delete>
+    
+    <update id="updPayment">
+        UPDATE t_payment
+        SET ibuyer = null
+        WHERE iuser = #{iuser} AND istatus IN (1, -1, -2, -3)
+    </update>
+
+
+
+
 </mapper>
