@@ -99,7 +99,7 @@
 
     <delete id = "delProdPaymt">
         DELETE FROM t_product_payment
-        WHERE iproduct IN(
+        WHERE iproduct IN (
             SELECT iproduct
             FROM t_product
             WHERE iuser = #{iuser}
@@ -108,16 +108,14 @@
     
     <delete id="delProduct">
         DELETE FROM t_product
-        WHERE iproduct = #{iproduct}
+        WHERE iuser = #{iuser} and istatus IN(-1, -2)
     </delete>
     
     <update id="updPayment">
         UPDATE t_payment
-        SET ibuyer = null
-        WHERE iuser = #{iuser} AND istatus IN (1, -1, -2, -3)
+        SET ibuyer = 6
+        WHERE ibuyer = #{iuser} and istatus IN (1, -1, -2, -3)
     </update>
-
-
 
 
 </mapper>

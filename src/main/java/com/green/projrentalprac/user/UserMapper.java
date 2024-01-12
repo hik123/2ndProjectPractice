@@ -3,6 +3,8 @@ package com.green.projrentalprac.user;
 import com.green.projrentalprac.user.model.*;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface UserMapper {
     int insUser(UserSignupDto dto);
@@ -14,7 +16,7 @@ public interface UserMapper {
     int findUpw(UserFindUpwDto dto);
     int updInfo(UserUpdInfoDto dto);
 
-    UserDelVo selDelTarget(int iuser);
+    List<UserDelVo> selDelTarget(int iuser);
 
 
     int delUser(int iuser);

@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -65,15 +67,16 @@ public class UserService {
     }
 
     public ResVo delUser(int iuser) {
-        UserDelVo entity = mapper.selDelTarget(iuser);
-        if(entity == null) {
+        List<UserDelVo> entity = mapper.selDelTarget(iuser);
+        log.info("entity : {}", entity);
+        if(entity != null) {
             mapper.delPics(iuser);
             mapper.delProdPaymt(iuser);
-            mapper.delProduct(entity.getIproduct());
+            mapper.delProduct(iuser);
             mapper.updPayment(iuser);
             mapper.delUser(iuser);
+            return new ResVo(1);
         }
-
-        return new ResVo(1);
+        return new ResVo(0);
     }
 }
